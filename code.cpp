@@ -73,8 +73,8 @@ class HashMap {
             return end();
         }
         iterator it = Pointers[index];
-        while (it != end() && getIndex(it -> first) == index) {
-            if (it -> first == key) {
+        while (it != end() && getIndex(it->first) == index) {
+            if (it->first == key) {
                 return it;
             }
             ++it;
@@ -88,8 +88,8 @@ class HashMap {
             return end();
         }
         auto it = Pointers[index];
-        while (it != end() && getIndex(it -> first) == index) {
-            if (it -> first == key) {
+        while (it != end() && getIndex(it->first) == index) {
+            if (it->first == key) {
                 return it;
             }
             ++it;
@@ -124,7 +124,7 @@ class HashMap {
             if (searchIter == Pointers[index]) {
                 iterator nextIter = searchIter;
                 nextIter++;
-                if (nextIter == end() || getIndex(nextIter -> first) != index) {
+                if (nextIter == end() || getIndex(nextIter->first) != index) {
                     Pointers[index] = end();
                 } else {
                     Pointers[index] = nextIter;
@@ -144,7 +144,7 @@ class HashMap {
         }
     }
 
-    HashMap(const std::initializer_list<std::pair<KeyType, ValueType>>& List, 
+    HashMap(const std::initializer_list<std::pair<KeyType, ValueType>>& List,
             const Hash& Hasher = Hash()):
         Size(0), Capacity(1), hasher(Hasher) {
         Pointers.resize(Capacity, Elements.end());
@@ -158,9 +158,9 @@ class HashMap {
         iterator searchIter = find(key);
         if (searchIter == end()) {
             iterator insertIter = insert(std::make_pair(key, ValueType()));
-            return insertIter -> second;
+            return insertIter->second;
         }
-        return searchIter -> second;
+        return searchIter->second;
     }
 
 
@@ -169,7 +169,7 @@ class HashMap {
         if (searchIter == end()) {
             throw std::out_of_range("Out of range");
         }
-        return searchIter -> second;
+        return searchIter->second;
     }
 
     void clear() {
