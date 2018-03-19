@@ -57,10 +57,7 @@ class HashMap {
     }
 
     bool empty() const {
-        if (0 == Size) {
-            return true;
-        }
-        return false;
+        return (0 == Size);
     }
 
     Hash hash_function() const {
@@ -117,6 +114,7 @@ class HashMap {
             return nextBegin;
         }
     }
+
     void erase(const KeyType& key) {
         iterator searchIter = find(key);
         if (searchIter != end()) {
@@ -145,14 +143,7 @@ class HashMap {
     }
 
     HashMap(const std::initializer_list<std::pair<KeyType, ValueType>>& List,
-            const Hash& Hasher = Hash()):
-        Size(0), Capacity(1), hasher(Hasher) {
-        Pointers.resize(Capacity, Elements.end());
-        for (std::pair<KeyType, ValueType> Pair: List) {
-            insert(Pair);
-        }
-    }
-
+            const Hash& Hasher = Hash()) : HashMap(List.begin(), List.end(), Hasher) {};
 
     ValueType& operator[] (const KeyType& key) {
         iterator searchIter = find(key);
@@ -179,7 +170,7 @@ class HashMap {
     }
 
     HashMap(const HashMap& M) {
-        (*this) = M;
+        *this = M;
     }
 
     HashMap& operator= (const HashMap& M) {
@@ -193,7 +184,7 @@ class HashMap {
         for (auto x: CopyOfElements) {
             insert(x);
         }
-        return (*this);
+        return *this;
     }
 
     size_t capacity() const {
